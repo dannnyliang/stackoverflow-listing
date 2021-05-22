@@ -9,7 +9,7 @@ import styled from "@emotion/styled";
 import { useState } from "react";
 
 import { useAppDispatch } from "../hooks";
-import { fetchTagStart } from "../redux/reducer/tag";
+import { fetchTagAndQuestionStart } from "../redux/reducer/tag";
 
 const StickyWrapper = styled(Box)`
   position: sticky;
@@ -24,7 +24,11 @@ function SearchInput() {
   const handleChange: InputProps["onChange"] = (e) => {
     const value = e.target.value;
     setValue(value);
-    dispatch(fetchTagStart({ inname: value }));
+    dispatch(
+      fetchTagAndQuestionStart({
+        tag: { inname: value, pageSize: 10 },
+      })
+    );
   };
 
   return (

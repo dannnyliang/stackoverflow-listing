@@ -8,7 +8,13 @@ import {
 } from "redux-saga/effects";
 
 import APIs from "../../apis";
-import { fetchTagFail, fetchTagStart, fetchTagSuccess } from "../reducer/tag";
+import { fetchQuestionStart } from "../reducer/question";
+import {
+  fetchTagFail,
+  fetchTagStart,
+  fetchTagSuccess,
+  selectTag,
+} from "../reducer/tag";
 
 const DEBOUNCE_TIME = 1000;
 
@@ -29,6 +35,9 @@ function* fetchTags(action: ReturnType<typeof fetchTagStart>) {
 
 function* watchGetTags() {
   yield takeLatest(fetchTagStart, fetchTags);
+  yield takeLatest(selectTag, function* (action) {
+    yield put(fetchQuestionStart({ tagged: action.payload, pageSize: 20 }));
+  });
 }
 
 export default function* tagSaga() {

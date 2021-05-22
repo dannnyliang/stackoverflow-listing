@@ -6,6 +6,7 @@ import {
   GetQuestionsParm,
 } from "../../apis/questions";
 import { FETCH_STATUS } from "./constant";
+import { fetchTagAndQuestionStart } from "./tag";
 
 interface QuestionState {
   status: FETCH_STATUS;
@@ -46,6 +47,10 @@ const questionSlice = createSlice({
       prepare: (data: GetQuestionsData) => ({ payload: data }),
     },
   },
+  extraReducers: (builder) =>
+    builder.addCase(fetchTagAndQuestionStart, (state) => {
+      state.status = FETCH_STATUS.LOADING;
+    }),
 });
 
 /** ----- Action ----- */

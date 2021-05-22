@@ -11,43 +11,32 @@ import {
   WrapItem,
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
-import { isEmpty, take } from "ramda";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback } from "react";
 
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { FETCH_STATUS } from "../redux/reducer/constant";
-import { fetchQuestionStart } from "../redux/reducer/question";
-import { fetchTagStart } from "../redux/reducer/tag";
+import { selectTag } from "../redux/reducer/tag";
 
 const ClickableTag = styled(Tag)`
   cursor: pointer;
 `;
 
 function TrendingTagList() {
-  const [selectedTag, setSelectedTag] = useState<string>();
-  const { status, error, data } = useAppSelector((state) => state.tag);
+  const {
+    selected: selectedTag,
+    status,
+    error,
+    data,
+  } = useAppSelector((state) => state.tag);
   const dispatch = useAppDispatch();
 
   const handleClickTag = useCallback(
-    (name: string) => {
-      setSelectedTag(name);
-      dispatch(fetchQuestionStart({ tagged: name, pageSize: 20 }));
-    },
+    (name: string) => dispatch(selectTag(name)),
     [dispatch]
   );
 
-  useEffect(() => {
-    dispatch(fetchTagStart());
-  }, [dispatch]);
-
-  const topTagList = useMemo(() => take(10, data?.items ?? []), [data?.items]);
-  const isTagListEmpty = topTagList.length === 0;
-
-  useEffect(() => {
-    if (!isEmpty(topTagList)) {
-      handleClickTag(topTagList[0].name);
-    }
-  }, [handleClickTag, topTagList]);
+  const tagList = data?.items ?? [];
+  const isTagListEmpty = tagList.length === 0;
 
   if (status === FETCH_STATUS.LOADING) {
     return (
@@ -77,7 +66,7 @@ function TrendingTagList() {
         </Alert>
       )}
       <Wrap>
-        {topTagList.map((tag) => (
+        {tagList.map((tag) => (
           <WrapItem key={tag.name}>
             <ClickableTag
               size="lg"

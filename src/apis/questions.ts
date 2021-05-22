@@ -1,5 +1,10 @@
 import queryString from "query-string";
 
+export const emptyQuestionData: GetQuestionsData = {
+  items: [],
+  has_more: false,
+};
+
 export type GetQuestionsParm = {
   page?: number;
   pageSize?: number;
@@ -38,8 +43,6 @@ export type GetQuestionsData = {
     title: string;
   }[];
   has_more: boolean;
-  quota_max: number;
-  quota_remaining: number;
 };
 export type GetQuestionsResponse = GetQuestionsData | GetQuestionsError;
 

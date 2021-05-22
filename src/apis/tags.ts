@@ -1,5 +1,10 @@
 import queryString from "query-string";
 
+export const emptyTagData: GetTagsData = {
+  items: [],
+  has_more: false,
+};
+
 export type GetTagsParm = {
   page?: number;
   pageSize?: number;
@@ -27,8 +32,6 @@ export type GetTagsData = {
     name: string;
   }[];
   has_more: boolean;
-  quota_max: number;
-  quota_remaining: number;
 };
 export type GetTagsResponse = GetTagsData | GetTagsError;
 
