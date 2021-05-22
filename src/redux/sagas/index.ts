@@ -1,5 +1,6 @@
 import { all } from "redux-saga/effects";
 
+import questionSaga from "./question";
 import tagSaga from "./tag";
 
 export function helloSaga() {
@@ -7,5 +8,5 @@ export function helloSaga() {
 }
 
 export default function* rootSaga() {
-  yield all([helloSaga(), tagSaga()]);
+  yield all([helloSaga(), tagSaga(), questionSaga()]);
 }
