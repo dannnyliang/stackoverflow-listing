@@ -36,6 +36,7 @@ function TrendingTagList() {
   }, [dispatch]);
 
   const topTagList = useMemo(() => take(10, data?.items ?? []), [data?.items]);
+  const isTagListEmpty = topTagList.length === 0;
 
   useEffect(() => {
     if (!isEmpty(topTagList)) {
@@ -54,7 +55,7 @@ function TrendingTagList() {
 
   return (
     <VStack align="start" spacing={4}>
-      <Heading>Trending</Heading>
+      <Heading size="md">Trending</Heading>
       {error && (
         <Alert status="error">
           <AlertIcon />
@@ -62,6 +63,12 @@ function TrendingTagList() {
             Error({error.error_id}): {error.error_name}
           </AlertTitle>
           <AlertDescription>{error.error_message}</AlertDescription>
+        </Alert>
+      )}
+      {isTagListEmpty && (
+        <Alert status="warning">
+          <AlertIcon />
+          Can't found related tags
         </Alert>
       )}
       <Wrap>
