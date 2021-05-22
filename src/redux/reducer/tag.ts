@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-import { GetTagsData, GetTagsError } from "../../apis/tags";
+import { GetTagsData, GetTagsError, GetTagsParm } from "../../apis/tags";
 import { FETCH_STATUS } from "./constant";
 
 interface TagState {
@@ -20,8 +20,11 @@ const tagSlice = createSlice({
   name,
   initialState,
   reducers: {
-    fetchTagStart: (state) => {
-      state.status = FETCH_STATUS.LOADING;
+    fetchTagStart: {
+      reducer: (state) => {
+        state.status = FETCH_STATUS.LOADING;
+      },
+      prepare: (parm?: GetTagsParm) => ({ payload: parm }),
     },
     fetchTagFail: {
       reducer: (state, action: PayloadAction<GetTagsError>) => {

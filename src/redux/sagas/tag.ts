@@ -1,12 +1,23 @@
-import { SagaReturnType, all, call, put, takeEvery } from "redux-saga/effects";
+import {
+  SagaReturnType,
+  all,
+  call,
+  delay,
+  put,
+  takeLatest,
+} from "redux-saga/effects";
 
 import APIs from "../../apis";
 import { fetchTagFail, fetchTagStart, fetchTagSuccess } from "../reducer/tag";
 
-function* fetchTags() {
+const DEBOUNCE_TIME = 1000;
+
+function* fetchTags(action: ReturnType<typeof fetchTagStart>) {
+  yield delay(DEBOUNCE_TIME);
+
   const tags: SagaReturnType<typeof APIs.getTags> = yield call(
     APIs.getTags,
-    {}
+    action.payload ?? {}
   );
 
   if ("error_id" in tags) {
@@ -17,7 +28,7 @@ function* fetchTags() {
 }
 
 function* watchGetTags() {
-  yield takeEvery(fetchTagStart, fetchTags);
+  yield takeLatest(fetchTagStart, fetchTags);
 }
 
 export default function* tagSaga() {
