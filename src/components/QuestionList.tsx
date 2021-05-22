@@ -8,22 +8,16 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { isNil } from "ramda";
-import { useEffect } from "react";
 
-import { useAppDispatch, useAppSelector } from "../hooks";
+import { useAppSelector } from "../hooks";
 import { FETCH_STATUS } from "../redux/reducer/constant";
-import { fetchQuestionStart } from "../redux/reducer/question";
 import QuestionItem from "./QuestionItem";
 
 function QuestionList() {
   const { status, error, data } = useAppSelector((state) => state.question);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(fetchQuestionStart({ pageSize: 20 }));
-  }, [dispatch]);
 
   const questionList = data?.items ?? [];
+  const isQuestionListEmpty = questionList.length === 0;
 
   if (status === FETCH_STATUS.LOADING) {
     return <Spinner />;
@@ -38,6 +32,12 @@ function QuestionList() {
             Error({error.error_id}): {error.error_name}
           </AlertTitle>
           <AlertDescription>{error.error_message}</AlertDescription>
+        </Alert>
+      )}
+      {isQuestionListEmpty && (
+        <Alert status="warning">
+          <AlertIcon />
+          Can't found any question
         </Alert>
       )}
       <VStack

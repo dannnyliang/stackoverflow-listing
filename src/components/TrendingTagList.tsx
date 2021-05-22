@@ -12,10 +12,11 @@ import {
 } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { isEmpty, take } from "ramda";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { FETCH_STATUS } from "../redux/reducer/constant";
+import { fetchQuestionStart } from "../redux/reducer/question";
 import { fetchTagStart } from "../redux/reducer/tag";
 
 const ClickableTag = styled(Tag)`
@@ -27,9 +28,13 @@ function TrendingTagList() {
   const { status, error, data } = useAppSelector((state) => state.tag);
   const dispatch = useAppDispatch();
 
-  const handleClickTag = (name: string) => {
-    setSelectedTag(name);
-  };
+  const handleClickTag = useCallback(
+    (name: string) => {
+      setSelectedTag(name);
+      dispatch(fetchQuestionStart({ tagged: name, pageSize: 20 }));
+    },
+    [dispatch]
+  );
 
   useEffect(() => {
     dispatch(fetchTagStart());
@@ -40,9 +45,9 @@ function TrendingTagList() {
 
   useEffect(() => {
     if (!isEmpty(topTagList)) {
-      setSelectedTag(topTagList[0].name);
+      handleClickTag(topTagList[0].name);
     }
-  }, [topTagList]);
+  }, [handleClickTag, topTagList]);
 
   if (status === FETCH_STATUS.LOADING) {
     return (
