@@ -1,6 +1,6 @@
 import queryString from "query-string";
 
-type GetQuestionsParm = {
+export type GetQuestionsParm = {
   page?: number;
   pageSize?: number;
   fromdate?: Date;
@@ -12,13 +12,13 @@ type GetQuestionsParm = {
   tagged?: string;
 };
 
-type GetQuestionsError = {
+export type GetQuestionsError = {
   error_id: number;
   error_message: string;
   error_name: string;
 };
 
-type GetQuestionsData = {
+export type GetQuestionsData = {
   items: {
     tags: string[];
     owner: {
@@ -44,7 +44,7 @@ type GetQuestionsData = {
   quota_max: number;
   quota_remaining: number;
 };
-type GetQuestionsResponse = GetQuestionsData | GetQuestionsError;
+export type GetQuestionsResponse = GetQuestionsData | GetQuestionsError;
 
 export const getQuestions = (
   parm: GetQuestionsParm

@@ -1,6 +1,6 @@
 import queryString from "query-string";
 
-type GetTagsParm = {
+export type GetTagsParm = {
   page?: number;
   pageSize?: number;
   fromdate?: Date;
@@ -12,13 +12,13 @@ type GetTagsParm = {
   inname?: string;
 };
 
-type GetTagsError = {
+export type GetTagsError = {
   error_id: number;
   error_message: string;
   error_name: string;
 };
 
-type GetTagsData = {
+export type GetTagsData = {
   items: {
     has_synonyms: boolean;
     is_moderator_only: boolean;
@@ -30,7 +30,7 @@ type GetTagsData = {
   quota_max: number;
   quota_remaining: number;
 };
-type GetTagsResponse = GetTagsData | GetTagsError;
+export type GetTagsResponse = GetTagsData | GetTagsError;
 
 export const getTags = (parm: GetTagsParm): Promise<GetTagsResponse> => {
   const { page, pageSize, fromdate, todate, min, max, order, sort, inname } =
