@@ -50,7 +50,7 @@ function* fetchTagAndQuestion(
 
   const getQuestionsParm = mergeDeepRight<GetQuestionsParm, GetQuestionsParm>(
     action.payload?.question ?? {},
-    { tagged: firstTagName, pageSize: 20 }
+    { tagged: firstTagName, page: 1, pageSize: 20 }
   );
   const questions: SagaReturnType<typeof APIs.getQuestions> = yield call(
     APIs.getQuestions,

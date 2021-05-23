@@ -28,6 +28,15 @@ const questionSlice = createSlice({
     fetchQuestionStart: {
       reducer: (state) => {
         state.status = FETCH_STATUS.LOADING;
+        state.data = null;
+        state.error = null;
+      },
+      prepare: (parm?: GetQuestionsParm) => ({ payload: parm }),
+    },
+    fetchMoreQuestionStart: {
+      reducer: (state) => {
+        state.status = FETCH_STATUS.LOADING;
+        state.error = null;
       },
       prepare: (parm?: GetQuestionsParm) => ({ payload: parm }),
     },
@@ -46,16 +55,34 @@ const questionSlice = createSlice({
       },
       prepare: (data: GetQuestionsData) => ({ payload: data }),
     },
+    fetchMoreQuestionSuccess: {
+      reducer: (state, action: PayloadAction<GetQuestionsData>) => {
+        state.status = FETCH_STATUS.PENDING;
+        state.data = {
+          ...action.payload,
+          items: [...(state.data?.items ?? []), ...action.payload.items],
+        };
+        state.error = null;
+      },
+      prepare: (data: GetQuestionsData) => ({ payload: data }),
+    },
   },
   extraReducers: (builder) =>
     builder.addCase(fetchTagAndQuestionStart, (state) => {
       state.status = FETCH_STATUS.LOADING;
+      state.data = null;
+      state.error = null;
     }),
 });
 
 /** ----- Action ----- */
-export const { fetchQuestionStart, fetchQuestionFail, fetchQuestionSuccess } =
-  questionSlice.actions;
+export const {
+  fetchQuestionStart,
+  fetchMoreQuestionStart,
+  fetchQuestionFail,
+  fetchQuestionSuccess,
+  fetchMoreQuestionSuccess,
+} = questionSlice.actions;
 
 /** ----- Reducer ----- */
 export default questionSlice.reducer;

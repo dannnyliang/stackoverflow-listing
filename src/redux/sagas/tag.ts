@@ -33,11 +33,13 @@ function* fetchTags(action: ReturnType<typeof fetchTagStart>) {
   }
 }
 
+function* fetchQuestionWhenSelectTag(action: ReturnType<typeof selectTag>) {
+  yield put(fetchQuestionStart({ tagged: action.payload, pageSize: 20 }));
+}
+
 function* watchGetTags() {
   yield takeLatest(fetchTagStart, fetchTags);
-  yield takeLatest(selectTag, function* (action) {
-    yield put(fetchQuestionStart({ tagged: action.payload, pageSize: 20 }));
-  });
+  yield takeLatest(selectTag, fetchQuestionWhenSelectTag);
 }
 
 export default function* tagSaga() {
