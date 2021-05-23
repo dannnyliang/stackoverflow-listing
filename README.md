@@ -2,7 +2,7 @@
 
 🌐 [Site](https://stackoverflow-listing.vercel.app/)
 
-Search StackOverflow tags and questions.
+Search StackOverflow tags and questions.\
 This project was bootstrapped with [Customed Create React App](https://github.com/dannnyliang/cra-template).
 
 ## Setup
@@ -13,10 +13,10 @@ git clone git@github.com:dannnyliang/stackoverflow-listing.git && cd stackoverfl
 ```
 
 ## Development
-Runs the app in the development mode.
+Runs the app in the development mode.\
 Open http://localhost:3000 to view it in the browser.
 
-The page will reload if you make edits.
+The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ```bash
