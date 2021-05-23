@@ -15,7 +15,9 @@ function App() {
   }, [dispatch]);
 
   return (
-    <Container maxW="container.md">
+    <Container
+      maxW={{ lg: "container.lg", md: "container.md", sm: "container.sm" }}
+    >
       <VStack spacing={8} mt={8} align="stretch">
         <SearchInput />
         <TrendingTagList />
