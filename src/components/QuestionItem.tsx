@@ -1,8 +1,20 @@
-import { Avatar, Center, Flex, Heading, Text, VStack } from "@chakra-ui/react";
+import {
+  Avatar,
+  Center,
+  Flex,
+  Heading,
+  LinkBox,
+  LinkOverlay,
+  Text,
+  VStack,
+} from "@chakra-ui/react";
 import styled from "@emotion/styled";
 
-const Wrapper = styled.a`
-  width: 100%;
+const Title = styled(LinkOverlay)``;
+const Wrapper = styled(LinkBox)`
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+  }
 `;
 const StyledAnwserCount = styled(Text)<{
   hasAcceptedAnswer: boolean;
@@ -43,11 +55,15 @@ function QuestionItem(props: QuestionItemProps) {
   } = props;
 
   return (
-    <Wrapper href={link} target="_blank">
+    <Wrapper w="100%" px={2} py={4} borderRadius="lg">
       <Flex justifyContent="space-between">
         <Flex direction="column" flex={1}>
           <VStack align="start">
-            <Heading size="md">{title}</Heading>
+            <Heading size="md">
+              <Title href={link} isExternal>
+                {title}
+              </Title>
+            </Heading>
             <Flex justifyContent="space-around" w="100%">
               <Flex direction="column">
                 <Text color="red">Score</Text>
@@ -78,7 +94,7 @@ function QuestionItem(props: QuestionItemProps) {
             name={owner.display_name}
             src={owner.profile_image}
           />
-          <Center>{owner.display_name}</Center>
+          <Center textAlign="center">{owner.display_name}</Center>
         </VStack>
       </Flex>
     </Wrapper>

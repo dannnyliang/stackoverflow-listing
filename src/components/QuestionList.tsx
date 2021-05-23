@@ -70,7 +70,6 @@ function QuestionList() {
         </Alert>
       )}
       <VStack
-        spacing={4}
         pb={4}
         align="start"
         divider={<StackDivider borderColor="gray.200" />}
