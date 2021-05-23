@@ -21,10 +21,6 @@ import {
 import questionSaga from "./question";
 import tagSaga from "./tag";
 
-export function helloSaga() {
-  console.log("Hello Sagas!");
-}
-
 function* fetchTagAndQuestion(
   action: ReturnType<typeof fetchTagAndQuestionStart>
 ) {
@@ -71,5 +67,5 @@ function* watchBatchFetch() {
 }
 
 export default function* rootSaga() {
-  yield all([helloSaga(), tagSaga(), questionSaga(), watchBatchFetch()]);
+  yield all([tagSaga(), questionSaga(), watchBatchFetch()]);
 }
