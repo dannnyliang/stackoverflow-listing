@@ -3,7 +3,7 @@ import { isEmpty } from "ramda";
 
 import { GetQuestionsParm } from "../../apis/questions";
 import { GetTagsData, GetTagsError, GetTagsParm } from "../../apis/tags";
-import { FETCH_STATUS } from "./constant";
+import { FETCH_STATUS } from "../../constant";
 
 interface TagState {
   selected?: string;

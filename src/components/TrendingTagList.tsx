@@ -13,8 +13,8 @@ import {
 import styled from "@emotion/styled";
 import { useCallback } from "react";
 
+import { FETCH_STATUS } from "../constant";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { FETCH_STATUS } from "../redux/reducer/constant";
 import { selectTag } from "../redux/reducer/tag";
 
 const ClickableTag = styled(Tag)`

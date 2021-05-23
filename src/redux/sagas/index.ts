@@ -11,6 +11,7 @@ import {
 import APIs from "../../apis";
 import { GetQuestionsParm, emptyQuestionData } from "../../apis/questions";
 import { emptyTagData } from "../../apis/tags";
+import { QUESTION_PAGE_SIZE } from "../../constant";
 import { fetchQuestionFail, fetchQuestionSuccess } from "../reducer/question";
 import {
   fetchTagAndQuestionStart,
@@ -50,7 +51,7 @@ function* fetchTagAndQuestion(
 
   const getQuestionsParm = mergeDeepRight<GetQuestionsParm, GetQuestionsParm>(
     action.payload?.question ?? {},
-    { tagged: firstTagName, page: 1, pageSize: 20 }
+    { tagged: firstTagName, page: 1, pageSize: QUESTION_PAGE_SIZE }
   );
   const questions: SagaReturnType<typeof APIs.getQuestions> = yield call(
     APIs.getQuestions,

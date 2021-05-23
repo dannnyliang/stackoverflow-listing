@@ -11,8 +11,8 @@ import {
 import { isNil } from "ramda";
 import useInfiniteScroll from "react-infinite-scroll-hook";
 
+import { FETCH_STATUS, QUESTION_PAGE_SIZE } from "../constant";
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { FETCH_STATUS } from "../redux/reducer/constant";
 import { fetchMoreQuestionStart } from "../redux/reducer/question";
 import QuestionItem from "./QuestionItem";
 
@@ -30,11 +30,11 @@ function QuestionList() {
   const fetchMoreLoading = loading && !isQuestionListEmpty;
 
   const handleLoadMore = () => {
-    const currentPage = Math.ceil(questionList.length / 20);
+    const currentPage = Math.ceil(questionList.length / QUESTION_PAGE_SIZE);
     dispatch(
       fetchMoreQuestionStart({
         page: currentPage + 1,
-        pageSize: 20,
+        pageSize: QUESTION_PAGE_SIZE,
         tagged: selectedTag,
       })
     );

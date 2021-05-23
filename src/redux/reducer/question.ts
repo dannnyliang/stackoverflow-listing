@@ -5,7 +5,7 @@ import {
   GetQuestionsError,
   GetQuestionsParm,
 } from "../../apis/questions";
-import { FETCH_STATUS } from "./constant";
+import { FETCH_STATUS } from "../../constant";
 import { fetchTagAndQuestionStart } from "./tag";
 
 interface QuestionState {

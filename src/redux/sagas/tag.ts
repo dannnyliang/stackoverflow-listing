@@ -8,6 +8,7 @@ import {
 } from "redux-saga/effects";
 
 import APIs from "../../apis";
+import { QUESTION_PAGE_SIZE } from "../../constant";
 import { fetchQuestionStart } from "../reducer/question";
 import {
   fetchTagFail,
@@ -34,7 +35,9 @@ function* fetchTags(action: ReturnType<typeof fetchTagStart>) {
 }
 
 function* fetchQuestionWhenSelectTag(action: ReturnType<typeof selectTag>) {
-  yield put(fetchQuestionStart({ tagged: action.payload, pageSize: 20 }));
+  yield put(
+    fetchQuestionStart({ tagged: action.payload, pageSize: QUESTION_PAGE_SIZE })
+  );
 }
 
 function* watchGetTags() {
